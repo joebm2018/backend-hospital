@@ -7,31 +7,39 @@ var bodyParser = require('body-parser');
 //Inicializar Variables
 var app = express();
 
-
-//body parser
+//bodyParser
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-
-//Importamos las rutas
-var appRoutes = require('./rutas/app');
-var UsuarioRoutes = require('./rutas/usuario');
-var loginRoutes = require('./rutas/login');
+//Importar Rutas
+var appRoutes = require('./Routes/app');
+var usuarioRoutes = require('./Routes/Usuario');
+var loginRoutes = require('./Routes/Login');
+var hospitalRoutes = require('./Routes/hospital');
+var medicoRoutes = require('./Routes/medico');
+var busquedaRoutes = require('./Routes/busqueda');
+var uploadRoutes = require('./Routes/upload');
+var imagenRoutes = require('./Routes/imagenes')
 
 //conexion a la BD
 mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
-    // if (err) throw err;
+    if (err) throw err;
     console.log("Base de Datos: \x1b[32m%s\x1b[0m", "online");
 
 })
 
-
-//RUTAS
-app.use('/usuario', UsuarioRoutes);
+//Rutas
+app.use('/usuario', usuarioRoutes);
 app.use('/login', loginRoutes);
-app.use('/', appRoutes);
+app.use('/hospital', hospitalRoutes);
+app.use('/medico', medicoRoutes);
+app.use('/busqueda', busquedaRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/imagenes', imagenRoutes);
 
+
+app.use('/', appRoutes);
 
 //Escuchar peticiones
 app.listen(3000, () => {

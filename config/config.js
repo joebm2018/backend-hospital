@@ -1,1 +1,1 @@
-module.exports.SEED = 'este es un sitio dificil'
+module.exports.SEED = "este-es-un-sitio-dificil";
